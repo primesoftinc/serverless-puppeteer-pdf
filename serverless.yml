@@ -1,10 +1,10 @@
 service: serverless-pdf-puppeteer
-frameworkVersion: "1.49.0"
+frameworkVersion: "3"
 
 provider:
   name: aws
   versionFunctions: false
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   region: ap-southeast-2
   stage: dev
   profile: hotpuma
@@ -22,9 +22,12 @@ custom:
     webpackConfig: webpack.config.js
     includeModules: true
     packager: "yarn"
+  location:
+    dev:  .webpack/service
 
   serverless-offline:
     location: .webpack/service
+    basePath: /
 
   customDomain:
     domainName: labs.mianio.com

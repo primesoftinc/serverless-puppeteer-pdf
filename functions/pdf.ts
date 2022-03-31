@@ -1,6 +1,5 @@
 import middy from "middy";
 import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
 import {
   cors,
   doNotWaitForEmptyEventLoop,
@@ -9,11 +8,9 @@ import {
 } from "middy/middlewares";
 
 const handler = async (event: any) => {
-  const executablePath = event.isOffline
-    ? "./node_modules/puppeteer/.local-chromium/mac-674921/chrome-mac/Chromium.app/Contents/MacOS/Chromium"
-    : await chromium.executablePath;
+  const executablePath = await chromium.executablePath;
 
-  const browser = await puppeteer.launch({
+  const browser = await chromium.puppeteer.launch({
     args: chromium.args,
     executablePath
   });
